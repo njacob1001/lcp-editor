@@ -23,7 +23,8 @@
     /* Chadcn */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@/atoms/*": ["./src/components/atoms/*"]
     }
   },
   "include": ["src"],

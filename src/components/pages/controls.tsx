@@ -1,3 +1,5 @@
+import { Button } from "@/components/atoms/ui/button";
+
 export const Controls = () => {
-  return <div className="text-purple-600">controls</div>;
+  return <Button>Controls</Button>;
 };

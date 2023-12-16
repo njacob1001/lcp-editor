@@ -1,5 +1,5 @@
+import { Controls } from "@/components/pages/controls";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Controls } from "./components/pages/controls";
 
 const router = createBrowserRouter([
   {
