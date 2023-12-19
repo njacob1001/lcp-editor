@@ -9,7 +9,7 @@ const router = createBrowserRouter([
     element: <Pages.Controls />,
     children: [
       {
-        path: "datamodel/finder",
+        path: ":moduleType/finder/:finderId?",
         element: <Pages.Finder />,
       },
       {
@@ -25,7 +25,7 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
       <ReactQueryDevtools />
     </QueryClientProvider>
   );

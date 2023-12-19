@@ -81,6 +81,7 @@ export const theme = {
     },
     gridTemplateColumns: {
       ["app-layout"]: "12rem 1fr auto",
+      finder: "repeat(auto-fill, minmax(140px, 1fr))",
     },
     gridTemplateRows: {
       ["app-layout"]: "auto 1fr",
