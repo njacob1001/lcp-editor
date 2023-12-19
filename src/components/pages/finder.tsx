@@ -48,7 +48,11 @@ export const Finder = () => {
           <ul className="grid grid-cols-finder gap-3 my-5">
             {data?.elements?.map((item) => (
               <li key={item.id} className="h-24 overflow-hidden">
-                <Link to={`/datamodel/finder/${item.id}`}>
+                <Link
+                  to={`/${moduleType}/${
+                    item.elementType === "folder" ? "finder" : "editor"
+                  }/${item.id}`}
+                >
                   <div className="flex flex-col items-center">
                     {item.elementType === "folder" ? (
                       <Folder className=" h-11 w-11" strokeWidth="1px" />

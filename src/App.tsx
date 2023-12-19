@@ -13,8 +13,8 @@ const router = createBrowserRouter([
         element: <Pages.Finder />,
       },
       {
-        path: "editor",
-        element: <div>2</div>,
+        path: ":moduleType/editor/:finderId",
+        element: <Pages.EditorDataModel />,
       },
     ],
   },
