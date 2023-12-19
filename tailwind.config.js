@@ -73,8 +73,20 @@ export const theme = {
       "accordion-down": "accordion-down 0.2s ease-out",
       "accordion-up": "accordion-up 0.2s ease-out",
     },
+    gridTemplateAreas: {
+      ["app-layout"]: ["menu header header", "menu content content"],
+    },
+    gridTemplateColumns: {
+      ["app-layout"]: "12rem 1fr auto",
+    },
+    gridTemplateRows: {
+      ["app-layout"]: "auto 1fr",
+    },
   },
 };
 
 /** @type {import('tailwindcss').Config['plugins']} */
-export const plugins = [require("tailwindcss-animate")];
+export const plugins = [
+  require("tailwindcss-animate"),
+  require("@savvywombat/tailwindcss-grid-areas"),
+];

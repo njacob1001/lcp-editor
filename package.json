@@ -51,6 +51,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@savvywombat/tailwindcss-grid-areas": "^3.1.0",
     "@types/node": "^20.10.4",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",

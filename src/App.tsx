@@ -5,6 +5,16 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Controls />,
+    children: [
+      {
+        path: "finder",
+        element: <div>1</div>,
+      },
+      {
+        path: "editor",
+        element: <div>2</div>,
+      },
+    ],
   },
 ]);
 
