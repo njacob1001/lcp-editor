@@ -74,7 +74,10 @@ export const theme = {
       "accordion-up": "accordion-up 0.2s ease-out",
     },
     gridTemplateAreas: {
-      ["app-layout"]: ["menu header header", "menu content content"],
+      ["app-layout"]: [
+        "menu content-header app-header",
+        "menu content content",
+      ],
     },
     gridTemplateColumns: {
       ["app-layout"]: "12rem 1fr auto",

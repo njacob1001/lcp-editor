@@ -1,14 +1,15 @@
-import { Controls } from "@/components/pages/controls";
+import * as Pages from "@/components/pages";
+
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Controls />,
+    element: <Pages.Controls />,
     children: [
       {
-        path: "finder",
-        element: <div>1</div>,
+        path: "datamodel/finder",
+        element: <Pages.Finder />,
       },
       {
         path: "editor",
