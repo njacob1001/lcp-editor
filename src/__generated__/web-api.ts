@@ -55,6 +55,10 @@ const FinderInfo = z
   .object({ finder: Finder, previous: Finder })
   .partial()
   .passthrough();
+const MinimalFinder = z
+  .object({ directory: z.string(), id: z.string(), name: z.string() })
+  .partial()
+  .passthrough();
 const MoveRequest = z
   .object({ finder_id: z.string(), target_finder_id: z.string() })
   .partial()
@@ -82,6 +86,7 @@ export const schemas = {
   CreateFinderElementInput,
   Finder,
   FinderInfo,
+  MinimalFinder,
   MoveRequest,
   RenameRequest,
   dto_UiLink,
@@ -350,6 +355,26 @@ If the element is a folder, all the elements inside are deleted as well`,
       },
     ],
     response: FinderInfo,
+    errors: [
+      {
+        status: 400,
+        description: `Bad Request`,
+        schema: ErrorResponse,
+      },
+      {
+        status: 500,
+        description: `Internal Server Error`,
+        schema: ErrorResponse,
+      },
+    ],
+  },
+  {
+    method: "get",
+    path: "/finder/folders",
+    alias: "getFinderfolders",
+    description: `Find all elements with elementType &#x3D; folder`,
+    requestFormat: "json",
+    response: z.array(MinimalFinder),
     errors: [
       {
         status: 400,
