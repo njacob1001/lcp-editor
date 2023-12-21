@@ -25,9 +25,15 @@ const actions = {
   createModule: api.postFinder,
   rename: api.putFinderrename,
   delete: api.deleteFinderFinderId,
+  move: api.postFindermove,
 };
 
 type ActionType = keyof typeof actions;
+
+type MutationVariables = {
+  actionType: ActionType;
+  finderId?: string;
+};
 
 type Props = {
   onBackNavigation: () => void;
@@ -38,7 +44,10 @@ export const FinderOptions = ({ onBackNavigation, name }: Props) => {
   const { moduleType, finderId = "" } = useParams();
   const [dropdown, setDropdown] = useState(false);
 
-  const handleMutation = async (actionType: ActionType) => {
+  const handleMutation = async ({
+    actionType,
+    finderId: targetId,
+  }: MutationVariables) => {
     if (actionType === "delete") {
       await actions.delete(undefined, { params: { finderId } });
       onBackNavigation();
@@ -76,6 +85,14 @@ export const FinderOptions = ({ onBackNavigation, name }: Props) => {
       });
       return;
     }
+
+    if (actionType === "move") {
+      await actions.move({
+        finderId,
+        targeFinderId: targetId || "",
+      });
+      return;
+    }
   };
 
   const queryClient = useQueryClient();
@@ -93,7 +110,11 @@ export const FinderOptions = ({ onBackNavigation, name }: Props) => {
   });
 
   const handleClick = (actionType: ActionType) => () => {
-    mutate(actionType);
+    mutate({ actionType });
+  };
+
+  const handleMove = (finderId: string) => {
+    mutate({ finderId, actionType: "move" });
   };
 
   return (
@@ -139,7 +160,11 @@ export const FinderOptions = ({ onBackNavigation, name }: Props) => {
           )}
         </DropdownMenuContent>
       </DropdownMenu>
-      <MoveFolder isOpen={dropdown} onOpenChange={setDropdown} />
+      <MoveFolder
+        onSubmit={handleMove}
+        isOpen={dropdown}
+        onOpenChange={setDropdown}
+      />
     </>
   );
 };

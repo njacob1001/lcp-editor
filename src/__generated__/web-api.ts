@@ -60,7 +60,7 @@ const MinimalFinder = z
   .partial()
   .passthrough();
 const MoveRequest = z
-  .object({ finder_id: z.string(), target_finder_id: z.string() })
+  .object({ finderId: z.string(), targeFinderId: z.string() })
   .partial()
   .passthrough();
 const RenameRequest = z
