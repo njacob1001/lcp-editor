@@ -4,6 +4,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/atoms/ui/dropdown-menu";
@@ -17,7 +18,7 @@ import {
   TextCursorInput,
   Trash2,
 } from "lucide-react";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const actions = {
@@ -38,9 +39,16 @@ type MutationVariables = {
 type Props = {
   onBackNavigation: () => void;
   name: string;
+  disableCreation?: boolean;
+  children?: ReactNode;
 };
 
-export const FinderOptions = ({ onBackNavigation, name }: Props) => {
+export const FinderOptions = ({
+  onBackNavigation,
+  name,
+  disableCreation,
+  children,
+}: Props) => {
   const { moduleType, finderId = "" } = useParams();
   const [dropdown, setDropdown] = useState(false);
 
@@ -101,10 +109,10 @@ export const FinderOptions = ({ onBackNavigation, name }: Props) => {
     mutationFn: handleMutation,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [{ moduleType, finderId }],
+        queryKey: [moduleType, finderId],
       });
       queryClient.refetchQueries({
-        queryKey: [{ moduleType, finderId }],
+        queryKey: [moduleType, finderId],
       });
     },
   });
@@ -130,16 +138,23 @@ export const FinderOptions = ({ onBackNavigation, name }: Props) => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" side="right" sideOffset={8}>
-          <DropdownMenuItem onClick={handleClick("createModule")}>
-            <Plus className="mr-2 h-5 w-5" />
-            Create
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={handleClick("createFolder")}>
-            <FolderPlus className="mr-2 h-5 w-5" />
-            Folder
-          </DropdownMenuItem>
+          {children}
+          {!disableCreation && (
+            <>
+              <DropdownMenuItem onClick={handleClick("createModule")}>
+                <Plus className="mr-2 h-5 w-5" />
+                Create
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={handleClick("createFolder")}>
+                <FolderPlus className="mr-2 h-5 w-5" />
+                Folder
+              </DropdownMenuItem>
+            </>
+          )}
+
           {Boolean(finderId) && (
             <>
+              {!disableCreation && <DropdownMenuSeparator />}
               <DropdownMenuItem onClick={() => setDropdown(true)}>
                 <FolderInput className="mr-2 h-5 w-5" />
                 Move
@@ -152,6 +167,7 @@ export const FinderOptions = ({ onBackNavigation, name }: Props) => {
                 <TextCursorInput className="mr-2 h-5 w-5" />
                 Rename
               </DropdownMenuItem>
+              <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleClick("delete")}>
                 <Trash2 className="mr-2 h-5 w-5" />
                 Delete

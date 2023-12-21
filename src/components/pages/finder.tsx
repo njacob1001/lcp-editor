@@ -1,6 +1,6 @@
 import { Button } from "@/components/atoms/ui/button";
 import { ScrollArea } from "@/components/atoms/ui/scroll-area";
-import { FinderOptions } from "@/components/organisms/finder-options";
+import { FinderOptions } from "@/components/organisms/options-finder";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeftIcon, Folder, Shapes } from "lucide-react";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -9,7 +9,7 @@ import { api } from "@/__generated__/web-api";
 export const Finder = () => {
   const { moduleType = "", finderId = "" } = useParams();
   const { data } = useQuery({
-    queryKey: [{ moduleType, finderId }],
+    queryKey: [moduleType, finderId],
     queryFn: () =>
       api.getFinderModuleType({
         params: { moduleType },
